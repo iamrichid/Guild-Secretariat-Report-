@@ -1,0 +1,164 @@
+
+import React, { useState } from 'react';
+import { Report } from '../types';
+
+interface ReportViewerScreenProps {
+  report: Report;
+  onBack: () => void;
+}
+
+const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack }) => {
+  const [isExporting, setIsExporting] = useState<string | null>(null);
+
+  const handleExport = (format: string) => {
+    setIsExporting(format);
+    setTimeout(() => {
+      setIsExporting(null);
+      alert(`Report exported successfully as ${format}!`);
+    }, 1500);
+  };
+
+  return (
+    <div className="bg-background-light dark:bg-background-dark text-text-main-light dark:text-gray-100 flex flex-col h-screen overflow-hidden">
+      <header className="shrink-0 bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800 z-20">
+        <div className="flex items-center px-4 py-3 justify-between">
+          <button 
+            onClick={onBack}
+            className="text-text-main-light dark:text-white flex size-12 shrink-0 items-center justify-start hover:text-primary transition-colors"
+          >
+            <span className="material-symbols-outlined text-2xl">close</span>
+          </button>
+          <div className="flex flex-col items-center flex-1">
+            <h2 className="text-text-main-light dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] text-center">Document View</h2>
+            <span className="text-[10px] uppercase font-bold text-green-600">Saved Successfully</span>
+          </div>
+          <button className="flex items-center justify-end text-primary font-bold text-sm">
+            <span className="material-symbols-outlined mr-1">share</span> Share
+          </button>
+        </div>
+      </header>
+
+      <main className="flex-1 overflow-y-auto p-4 pb-48 space-y-6 bg-slate-100 dark:bg-background-dark">
+        {/* Document Body */}
+        <div className="bg-white dark:bg-surface-dark shadow-xl rounded-none border-t-4 border-primary p-8 min-h-[1000px] flex flex-col mx-auto max-w-full relative">
+          {/* Document Header */}
+          <div className="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-6 mb-8">
+            <div className="flex flex-col gap-1">
+              <h1 className="text-xl font-black text-ypg-blue dark:text-blue-400">PRESBYTERIAN CHURCH OF GHANA</h1>
+              <h2 className="text-lg font-bold text-primary">YOUNG PEOPLE'S GUILD</h2>
+              <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest">{report.presbytery} • {report.district || 'National'}</p>
+            </div>
+            <img 
+              alt="YPG Crest" 
+              className="h-16 w-auto" 
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPSUlakbvb7QMqYGZRd1XoBTtZGRjOU3YcjVfTDmQOEoNXxGn_RKs5WxXKngrupCZbYlRnB9sceguEI5BcUrIgEgyPD2cskV-R-8QbdO5DMMzgd1ee_-xgFxrTwVhzuNpUf-JKmoiXrQnXE-uoWkNf_yPUueHXmpFtfcpZCbdT0EWkUDj2W0SLJpcGoyhzSBWemPNrtoQLWtY-2a7FezF_ItCIf8jwcsK5AU6UddbC0Q8_EyU36ye-JunE_z8ng-2ySoc1g8Xra17X" 
+            />
+          </div>
+
+          {/* Title Section */}
+          <div className="text-center mb-10">
+            <h3 className="text-2xl font-black uppercase text-slate-900 dark:text-white tracking-tighter decoration-ypg-yellow decoration-4 underline underline-offset-8">
+              {report.title}
+            </h3>
+            <p className="mt-4 text-slate-500 font-bold">Reporting Period: {report.period}</p>
+          </div>
+
+          {/* Preliminaries */}
+          <section className="mb-10">
+            <h4 className="text-sm font-black text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">1.0 Preliminaries</h4>
+            <div className="bg-slate-50 dark:bg-background-dark/50 p-6 rounded-lg italic text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-800 leading-relaxed shadow-inner">
+              "{report.content?.preamble}"
+            </div>
+          </section>
+
+          {/* Key Result Areas */}
+          <section>
+            <h4 className="text-sm font-black text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-6">2.0 Key Result Areas</h4>
+            <div className="space-y-12">
+              {report.content?.kras?.map((kra, index) => (
+                <div key={kra.id} className="relative pl-8 border-l border-slate-200 dark:border-slate-800">
+                  <div className="absolute top-0 -left-1.5 w-3 h-3 rounded-full bg-primary ring-4 ring-white dark:ring-surface-dark"></div>
+                  <h5 className="text-base font-black text-slate-900 dark:text-white mb-4">2.{index + 1} {kra.label}</h5>
+                  
+                  <div className="grid grid-cols-1 gap-6">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest block mb-1">Objective</span>
+                      <p className="text-sm text-slate-800 dark:text-slate-200 font-medium">{kra.objective}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest block mb-1">Strategy / Activity</span>
+                      <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">{kra.strategy}</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-blue-50/50 dark:bg-blue-900/10 p-3 rounded border border-blue-100 dark:border-blue-900/30">
+                        <span className="text-[9px] font-black uppercase text-primary tracking-widest block mb-1">Targets</span>
+                        <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">{kra.targets}</p>
+                      </div>
+                      <div className="bg-green-50/50 dark:bg-green-900/10 p-3 rounded border border-green-100 dark:border-green-900/30">
+                        <span className="text-[9px] font-black uppercase text-green-700 tracking-widest block mb-1">Results</span>
+                        <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">{kra.results}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Footer Signature */}
+          <div className="mt-auto pt-16 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-12 text-center">
+            <div className="flex flex-col items-center">
+              <div className="w-full border-b border-slate-400 dark:border-slate-600 mb-2 h-12"></div>
+              <span className="text-[10px] font-black uppercase text-slate-500">Superintendent</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-full border-b border-slate-400 dark:border-slate-600 mb-2 h-12"></div>
+              <span className="text-[10px] font-black uppercase text-slate-500">Secretary</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Export Floating Bar */}
+      <div className="fixed bottom-0 left-0 w-full max-w-md mx-auto p-4 bg-white/90 dark:bg-surface-dark/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 z-30">
+        <p className="text-center text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-widest">Document Export Actions</p>
+        <div className="flex gap-3">
+          <button 
+            disabled={!!isExporting}
+            onClick={() => handleExport('PDF')}
+            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${
+              isExporting === 'PDF' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 active:scale-95 shadow-sm shadow-red-500/10'
+            }`}
+          >
+            {isExporting === 'PDF' ? (
+              <div className="size-5 border-2 border-red-200 border-t-red-600 rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+                PDF
+              </>
+            )}
+          </button>
+          <button 
+            disabled={!!isExporting}
+            onClick={() => handleExport('Word')}
+            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${
+              isExporting === 'Word' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 active:scale-95 shadow-sm shadow-blue-500/10'
+            }`}
+          >
+            {isExporting === 'Word' ? (
+              <div className="size-5 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-[24px]">description</span>
+                Word
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ReportViewerScreen;

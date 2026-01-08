@@ -1,0 +1,7 @@
+{
+  "name": "YPG Secretariat Portal",
+  "description": "A comprehensive digital reporting platform for the Presbyterian Church of Ghana Young People's Guild, featuring secure login, multi-level reporting context, dashboard analytics, and report management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
