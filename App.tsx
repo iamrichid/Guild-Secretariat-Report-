@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, UserContext, Report } from './types';
 import LoginScreen from './screens/LoginScreen';
 import SetupContextScreen from './screens/SetupContextScreen';
@@ -9,6 +9,7 @@ import CreateReportScreen from './screens/CreateReportScreen';
 import ArchivedReportsScreen from './screens/ArchivedReportsScreen';
 import ExportReportsScreen from './screens/ExportReportsScreen';
 import ReportViewerScreen from './screens/ReportViewerScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('LOGIN');
@@ -31,6 +32,11 @@ const App: React.FC = () => {
   const handleReportSubmit = (report: Report) => {
     setActiveReport(report);
     setCurrentView('REPORT_VIEWER');
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentView('LOGIN');
   };
 
   return (
@@ -71,6 +77,14 @@ const App: React.FC = () => {
       {currentView === 'EXPORT' && (
         <ExportReportsScreen 
           onBack={() => navigateTo('ARCHIVED')}
+        />
+      )}
+      {currentView === 'PROFILE' && (
+        <ProfileScreen 
+          user={user}
+          onBack={() => navigateTo('DASHBOARD')}
+          onLogout={handleLogout}
+          onNavigate={navigateTo}
         />
       )}
     </div>

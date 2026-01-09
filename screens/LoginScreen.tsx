@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface LoginScreenProps {
   onLogin: () => void;
@@ -7,9 +7,78 @@ interface LoginScreenProps {
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanComplete, setScanComplete] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const startBiometricScan = async () => {
+    setIsScanning(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+      
+      // Simulate scanning delay
+      setTimeout(() => {
+        setScanComplete(true);
+        setTimeout(() => {
+          // Stop camera
+          stream.getTracks().forEach(track => track.stop());
+          onLogin();
+        }, 1000);
+      }, 3000);
+    } catch (err) {
+      console.error("Biometric error:", err);
+      alert("Could not access camera for biometric login.");
+      setIsScanning(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-background-light dark:bg-background-dark">
+      {isScanning && (
+        <div className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-6 text-white">
+          <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-primary/50 mb-8">
+            <video 
+              ref={videoRef} 
+              autoPlay 
+              playsInline 
+              className="w-full h-full object-cover grayscale brightness-75"
+            />
+            {!scanComplete && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <div className="w-full h-1 bg-primary/80 animate-[bounce_2s_infinite] shadow-[0_0_15px_rgba(19,91,236,1)]"></div>
+              </div>
+            )}
+            {scanComplete && (
+              <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center">
+                <span className="material-symbols-outlined text-green-500 text-6xl animate-pulse filled">check_circle</span>
+              </div>
+            )}
+          </div>
+          <div className="text-center">
+            <h3 className="text-xl font-bold mb-2">
+              {scanComplete ? "Identity Verified" : "Scanning Face ID..."}
+            </h3>
+            <p className="text-gray-400 text-sm">
+              Please look directly at your screen.
+            </p>
+          </div>
+          <button 
+            onClick={() => {
+              if (videoRef.current?.srcObject) {
+                (videoRef.current.srcObject as MediaStream).getTracks().forEach(t => t.stop());
+              }
+              setIsScanning(false);
+            }} 
+            className="mt-12 text-gray-400 font-medium underline"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
       <div className="w-full max-w-[400px] flex flex-col gap-8">
         <div className="flex flex-col items-center justify-center text-center">
           <div className="relative mb-6 group">
@@ -76,8 +145,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
             >
               Login
             </button>
-            <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-50 dark:bg-background-dark hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium h-12 transition-all duration-200">
-              <span className="material-symbols-outlined text-[20px]">fingerprint</span>
+            <button 
+              onClick={startBiometricScan}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-50 dark:bg-background-dark hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium h-12 transition-all duration-200"
+            >
+              <span className="material-symbols-outlined text-[24px]">face</span>
               <span>Login with Biometrics</span>
             </button>
           </div>

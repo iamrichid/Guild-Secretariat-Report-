@@ -15,6 +15,7 @@ export interface Report {
   type?: string;
   content?: {
     preamble?: string;
+    introduction?: string;
     kras?: Array<{
       id: string;
       label: string;
@@ -26,7 +27,7 @@ export interface Report {
   };
 }
 
-export type View = 'LOGIN' | 'SETUP' | 'DASHBOARD' | 'ALL_REPORTS' | 'ARCHIVED' | 'CREATE' | 'EXPORT' | 'REPORT_VIEWER';
+export type View = 'LOGIN' | 'SETUP' | 'DASHBOARD' | 'ALL_REPORTS' | 'ARCHIVED' | 'CREATE' | 'EXPORT' | 'REPORT_VIEWER' | 'PROFILE';
 
 export interface UserContext {
   name: string;

@@ -10,7 +10,7 @@ interface BottomNavProps {
 
 const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate, showCreateButton = false }) => {
   const navItems = [
-    { id: 'DASHBOARD' as View, label: 'Dashboard', icon: 'dashboard' },
+    { id: 'DASHBOARD' as View, label: 'Home', icon: 'home' },
     { id: 'ALL_REPORTS' as View, label: 'Reports', icon: 'article' },
     { id: 'ARCHIVED' as View, label: 'Archives', icon: 'inventory_2' },
     { id: 'PROFILE' as View, label: 'Profile', icon: 'person' },
@@ -25,7 +25,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentView, onNavigate, showCrea
                <div className="relative -top-6">
                 <button 
                   onClick={() => onNavigate('CREATE')}
-                  className="flex items-center justify-center size-14 bg-secondary text-slate-900 rounded-full shadow-lg shadow-orange-200 dark:shadow-none hover:scale-105 transition-transform"
+                  className="flex items-center justify-center size-14 bg-primary text-white rounded-full shadow-lg shadow-blue-200 dark:shadow-none hover:scale-105 transition-transform"
                 >
                   <span className="material-symbols-outlined text-[28px]">add</span>
                 </button>

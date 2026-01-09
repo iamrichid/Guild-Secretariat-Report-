@@ -34,16 +34,13 @@ const SearchableInput = ({
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false);
-        // Clean up the search term: if it matches an option exactly (case insensitive), snap to it
         const exactMatch = options.find(opt => opt.toLowerCase() === searchTerm.toLowerCase());
         if (exactMatch) {
           onChange(exactMatch);
           setSearchTerm(exactMatch);
         } else if (searchTerm.trim() !== '') {
-          // If no match but user typed something, allow the custom value
           onChange(searchTerm);
         } else {
-          // If empty, revert to original value
           setSearchTerm(value);
         }
       }
@@ -69,7 +66,6 @@ const SearchableInput = ({
             const val = e.target.value;
             setSearchTerm(val);
             setIsOpen(true);
-            // Allow immediate state update in parent for custom typing
             onChange(val);
           }}
           placeholder={placeholder}
@@ -110,7 +106,7 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
   const [district, setDistrict] = useState('');
   const [role, setRole] = useState('');
   const [year, setYear] = useState('2024');
-  const [term, setTerm] = useState('Term 1');
+  const [term, setTerm] = useState('Quarter 1');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const presbyteries = [
@@ -136,15 +132,17 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
     "Tema Manhean", "Tema North", "Teshie"
   ].sort();
 
-  const roles = [
-    "President/Superintendent",
+  const portfolios = [
+    "President / Superintendent",
     "Secretary",
-    "Finance",
-    "Treasurer"
+    "Finance Secretary",
+    "Treasurer",
+    "Organizing Secretary",
+    "Evangelism Secretary"
   ];
 
   const years = Array.from({ length: 2027 - 2012 + 1 }, (_, i) => (2027 - i).toString());
-  const terms = ["Term 1", "Term 2", "Term 3"];
+  const quarters = ["Quarter 1", "Quarter 2", "Quarter 3"];
 
   const handleConfirm = () => {
     if (presbytery.trim() && district.trim() && role.trim()) {
@@ -160,7 +158,7 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
         });
       }, 300);
     } else {
-      alert("Please ensure Presbytery, District, and Role are entered or selected.");
+      alert("Please ensure Presbytery, District, and Portfolio are entered or selected.");
     }
   };
 
@@ -220,9 +218,9 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
           />
 
           <SearchableInput 
-            label="Office Held" 
+            label="Portfolio" 
             placeholder="Type to search or enter role..." 
-            options={roles} 
+            options={portfolios} 
             value={role} 
             onChange={setRole} 
             icon="military_tech" 
@@ -243,7 +241,7 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
               </div>
             </label>
             <label className="flex flex-col flex-1">
-              <p className="text-text-main-light dark:text-text-main-dark text-sm font-medium pb-2 ml-1">Term</p>
+              <p className="text-text-main-light dark:text-text-main-dark text-sm font-medium pb-2 ml-1">Reporting Period</p>
               <div className="relative flex items-center">
                 <span className="material-symbols-outlined absolute left-3 text-slate-400 text-[20px]">schedule</span>
                 <select 
@@ -251,7 +249,7 @@ const SetupContextScreen: React.FC<SetupContextScreenProps> = ({ onComplete, onB
                   onChange={(e) => setTerm(e.target.value)} 
                   className="form-select w-full rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark h-14 pl-10 focus:ring-2 focus:ring-primary/20 transition-all text-base"
                 >
-                  {terms.map(t => <option key={t} value={t}>{t}</option>)}
+                  {quarters.map(q => <option key={q} value={q}>{q}</option>)}
                 </select>
               </div>
             </label>

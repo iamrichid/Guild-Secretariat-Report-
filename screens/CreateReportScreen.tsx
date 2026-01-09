@@ -52,8 +52,6 @@ const CreateReportScreen: React.FC<CreateReportScreenProps> = ({ onBack, onSubmi
   };
 
   const handleFinalSubmit = () => {
-    // In a real app, we'd gather all the state from inputs
-    // For this prototype, we'll create a mock report object
     const newReport: Report = {
       id: Math.random().toString(36).substr(2, 9),
       title: 'Q3 Activity Report 2024',
@@ -64,6 +62,7 @@ const CreateReportScreen: React.FC<CreateReportScreenProps> = ({ onBack, onSubmi
       date: new Date().toLocaleDateString(),
       content: {
         preamble: "Psalm 121: I lift up my eyes to the mountains—where does my help come from? My help comes from the LORD, the Maker of heaven and earth.",
+        introduction: "This report provides a comprehensive overview of the activities and achievements of the Haatso YPG branch during the third quarter of 2024. It highlights our commitment to 'Service All the Way'.",
         kras: [
           {
             id: 'AHRM',
@@ -157,24 +156,28 @@ const CreateReportScreen: React.FC<CreateReportScreenProps> = ({ onBack, onSubmi
               </label>
               <div className="relative">
                 <textarea 
-                  className="w-full resize-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main-light dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary p-3 min-h-[100px] text-base placeholder:text-gray-400" 
+                  className="w-full resize-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main-light dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary p-3 min-h-[80px] text-base placeholder:text-gray-400" 
                   placeholder="Enter scripture text or hymn lyrics..."
                 ></textarea>
-                <div className="absolute bottom-2 right-2 text-[10px] text-gray-400">0/500</div>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-text-main-light dark:text-gray-300 text-sm font-semibold">Reporting Period</label>
-                <div className="flex items-center relative">
-                  <span className="absolute left-3 text-gray-400 material-symbols-outlined text-[20px]">calendar_today</span>
-                  <input 
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main-light dark:text-white py-3 pl-10 pr-3 text-base" 
-                    type="text" 
-                    defaultValue="July - September 2024" 
-                  />
-                </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-text-main-light dark:text-gray-300 text-sm font-semibold">Reporting Period</label>
+              <div className="flex items-center relative">
+                <span className="absolute left-3 text-gray-400 material-symbols-outlined text-[20px]">calendar_today</span>
+                <input 
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main-light dark:text-white py-3 pl-10 pr-3 text-base" 
+                  type="text" 
+                  defaultValue="July - September 2024" 
+                />
               </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-text-main-light dark:text-gray-300 text-sm font-semibold">Introduction</label>
+              <textarea 
+                className="w-full resize-none rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-text-main-light dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary p-3 min-h-[100px] text-base placeholder:text-gray-400" 
+                placeholder="Write a brief introduction to this report..."
+              ></textarea>
             </div>
           </div>
         </section>
