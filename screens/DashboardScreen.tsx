@@ -22,15 +22,15 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, onNavigate, onC
       <div className="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-3">
           <div className="shrink-0 mr-1">
-            <img 
-              alt="YPG Logo" 
-              className="h-10 w-auto object-contain" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrAMDkiozUCSYS8mPz42tCA_mu_YLDCL03GaR_Ai94fPqGI5-gG72r1vuLLnG8dZgIA-8b7t4V_SwYyXHLGFFFSE0iL1uAg-osVzQPaARSOz6NaRfzjmEDGdgpHbpfwIxPvHAoyOEQOntHPkHsnkzRxaeQ_8-QhlBJXd88M-p7TcHNUDgWGF0Zo4HKjCLFYq97CHWHyv-cYfN-v32S7INm-zlKQIir0_uAHaBz0SBVZE8QYSicQHnxz-0fM-KrhJQpzMLPyzB7sG8s" 
+            <img
+              alt="YPG Logo"
+              className="h-10 w-auto object-contain"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrAMDkiozUCSYS8mPz42tCA_mu_YLDCL03GaR_Ai94fPqGI5-gG72r1vuLLnG8dZgIA-8b7t4V_SwYyXHLGFFFSE0iL1uAg-osVzQPaARSOz6NaRfzjmEDGdgpHbpfwIxPvHAoyOEQOntHPkHsnkzRxaeQ_8-QhlBJXd88M-p7TcHNUDgWGF0Zo4HKjCLFYq97CHWHyv-cYfN-v32S7INm-zlKQIir0_uAHaBz0SBVZE8QYSicQHnxz-0fM-KrhJQpzMLPyzB7sG8s"
             />
           </div>
           <div className="relative">
-            <div 
-              className="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-white dark:border-slate-700 shadow-sm" 
+            <div
+              className="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-white dark:border-slate-700 shadow-sm"
               style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0tzod5ICzw7wTyXuaN_0-G5Bt_DFuZ9AEoOURWkMMkVZaIfdbBLn7CvfcNZ6edfC6IASWv-8Nie45w5DtD8f0HfIsKm07vIG5VszQEVT8D5Q60imSEQq8siGC5UZOQOKApwIRyu4RLrAPHytf6ujaTgLjzM227O7NQRHMQpS2FaskmuOxUl_LtFqsDCkrX6Z7bIsQf6N8biksvLWbapiT50cbCwwCog_ka1UzZcB-JCagOdDpZ1CQVBP8CiVwdFcAACxayZHHP_nm")' }}
             ></div>
             <div className="absolute bottom-0 right-0 size-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></div>
@@ -53,7 +53,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, onNavigate, onC
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-tight">
           Service all the way.
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Here is what's happening in your Presbytery/District/branch today.</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Here is what&apos;s happening in your Presbytery/District/branch today.</p>
       </div>
 
       <div className="flex overflow-x-auto px-5 py-4 gap-4 no-scrollbar snap-x">
@@ -90,7 +90,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, onNavigate, onC
       </div>
 
       <div className="px-5 py-2">
-        <button 
+        <button
           onClick={onCreateNew}
           className="w-full flex items-center justify-center gap-3 bg-primary hover:bg-blue-700 active:bg-blue-800 text-white p-4 rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]"
         >
@@ -107,35 +107,33 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, onNavigate, onC
         <div className="flex flex-col gap-3">
           {MOCK_REPORTS.map((report) => (
             <div key={report.id} className="flex items-center gap-4 p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-              <div className={`p-3 rounded-lg shrink-0 ${
-                report.status === 'Submitted' ? 'bg-blue-50 dark:bg-blue-900/20 text-primary' :
-                report.status === 'Draft' ? 'bg-yellow-50 dark:bg-yellow-900/20 text-secondary' :
-                report.status === 'Pending' ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-500' :
-                'bg-slate-50 dark:bg-slate-800 text-slate-400'
-              }`}>
+              <div className={`p-3 rounded-lg shrink-0 ${report.status === 'Submitted' ? 'bg-blue-50 dark:bg-blue-900/20 text-primary' :
+                  report.status === 'Draft' ? 'bg-yellow-50 dark:bg-yellow-900/20 text-secondary' :
+                    report.status === 'Pending' ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-500' :
+                      'bg-slate-50 dark:bg-slate-800 text-slate-400'
+                }`}>
                 <span className="material-symbols-outlined">
-                  {report.status === 'Submitted' ? 'description' : 
-                   report.status === 'Draft' ? 'edit_note' :
-                   report.status === 'Pending' ? 'history_edu' : 'inventory_2'}
+                  {report.status === 'Submitted' ? 'description' :
+                    report.status === 'Draft' ? 'edit_note' :
+                      report.status === 'Pending' ? 'history_edu' : 'inventory_2'}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">{report.title}</h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   {report.status === 'Submitted' ? `Submitted ${report.date}` :
-                   report.status === 'Draft' ? `Draft • Modified ${report.date}` :
-                   report.status === 'Pending' ? 'Pending Approval' : `Archived • ${report.date}`}
+                    report.status === 'Draft' ? `Draft • Modified ${report.date}` :
+                      report.status === 'Pending' ? 'Pending Approval' : `Archived • ${report.date}`}
                 </p>
               </div>
               <div className="shrink-0">
                 {report.status === 'Archived' ? (
                   <span className="material-symbols-outlined text-slate-400 text-[20px]">chevron_right</span>
                 ) : (
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                    report.status === 'Submitted' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                    report.status === 'Draft' ? 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300' :
-                    'bg-secondary/10 text-yellow-700 dark:bg-secondary/20 dark:text-yellow-300'
-                  }`}>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${report.status === 'Submitted' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                      report.status === 'Draft' ? 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300' :
+                        'bg-secondary/10 text-yellow-700 dark:bg-secondary/20 dark:text-yellow-300'
+                    }`}>
                     {report.status}
                   </span>
                 )}

@@ -24,11 +24,11 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
 
   const handleExport = (format: string) => {
     setIsExporting(format);
-    
+
     // Simulate generation time
     setTimeout(() => {
       const fileName = `${report.title.replace(/\s+/g, '_')}_${report.period.replace(/\s+/g, '_')}`;
-      
+
       if (format === 'PDF') {
         // Since we can't easily generate a binary PDF in the browser without a library like jspdf,
         // we simulate a high-quality print view or download a detailed text version.
@@ -48,7 +48,7 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
           
           2.0 KEY RESULT AREAS
           ${report.content?.kras?.map((k, i) => `
-          2.${i+1} ${k.label}
+          2.${i + 1} ${k.label}
           Objective: ${k.objective}
           Strategy: ${k.strategy}
           Targets: ${k.targets}
@@ -77,7 +77,7 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
             <p>${report.content?.introduction}</p>
             <h4>2.0 Key Result Areas</h4>
             ${report.content?.kras?.map((k, i) => `
-              <h5>2.${i+1} ${k.label}</h5>
+              <h5>2.${i + 1} ${k.label}</h5>
               <p><strong>Objective:</strong> ${k.objective}</p>
               <p><strong>Strategy:</strong> ${k.strategy}</p>
               <p><strong>Targets:</strong> ${k.targets}</p>
@@ -97,7 +97,7 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
     <div className="bg-background-light dark:bg-background-dark text-text-main-light dark:text-gray-100 flex flex-col h-screen overflow-hidden">
       <header className="shrink-0 bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800 z-20">
         <div className="flex items-center px-4 py-3 justify-between">
-          <button 
+          <button
             onClick={onBack}
             className="text-text-main-light dark:text-white flex size-12 shrink-0 items-center justify-start hover:text-primary transition-colors"
           >
@@ -118,13 +118,13 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
           <div className="flex items-center justify-between border-b-2 border-slate-100 dark:border-slate-800 pb-6 mb-8">
             <div className="flex flex-col gap-1">
               <h1 className="text-xl font-black text-ypg-blue dark:text-blue-400">PRESBYTERIAN CHURCH OF GHANA</h1>
-              <h2 className="text-lg font-bold text-primary">YOUNG PEOPLE'S GUILD</h2>
+              <h2 className="text-lg font-bold text-primary">YOUNG PEOPLE&apos;S GUILD</h2>
               <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest">{report.presbytery} • {report.district || 'National'}</p>
             </div>
-            <img 
-              alt="YPG Crest" 
-              className="h-16 w-auto" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPSUlakbvb7QMqYGZRd1XoBTtZGRjOU3YcjVfTDmQOEoNXxGn_RKs5WxXKngrupCZbYlRnB9sceguEI5BcUrIgEgyPD2cskV-R-8QbdO5DMMzgd1ee_-xgFxrTwVhzuNpUf-JKmoiXrQnXE-uoWkNf_yPUueHXmpFtfcpZCbdT0EWkUDj2W0SLJpcGoyhzSBWemPNrtoQLWtY-2a7FezF_ItCIf8jwcsK5AU6UddbC0Q8_EyU36ye-JunE_z8ng-2ySoc1g8Xra17X" 
+            <img
+              alt="YPG Crest"
+              className="h-16 w-auto"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPSUlakbvb7QMqYGZRd1XoBTtZGRjOU3YcjVfTDmQOEoNXxGn_RKs5WxXKngrupCZbYlRnB9sceguEI5BcUrIgEgyPD2cskV-R-8QbdO5DMMzgd1ee_-xgFxrTwVhzuNpUf-JKmoiXrQnXE-uoWkNf_yPUueHXmpFtfcpZCbdT0EWkUDj2W0SLJpcGoyhzSBWemPNrtoQLWtY-2a7FezF_ItCIf8jwcsK5AU6UddbC0Q8_EyU36ye-JunE_z8ng-2ySoc1g8Xra17X"
             />
           </div>
 
@@ -138,7 +138,7 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
           <section className="mb-10">
             <h4 className="text-sm font-black text-primary uppercase tracking-widest border-l-4 border-primary pl-3 mb-4">1.0 Preliminaries</h4>
             <div className="bg-slate-50 dark:bg-background-dark/50 p-6 rounded-lg italic text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-800 leading-relaxed shadow-inner">
-              "{report.content?.preamble}"
+              &quot;{report.content?.preamble}&quot;
             </div>
           </section>
 
@@ -156,7 +156,7 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
                 <div key={kra.id} className="relative pl-8 border-l border-slate-200 dark:border-slate-800 font-sans">
                   <div className="absolute top-0 -left-1.5 w-3 h-3 rounded-full bg-primary ring-4 ring-white dark:ring-surface-dark"></div>
                   <h5 className="text-base font-black text-slate-900 dark:text-white mb-4 italic">2.{index + 1} {kra.label}</h5>
-                  
+
                   <div className="grid grid-cols-1 gap-6">
                     <div>
                       <span className="text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 tracking-widest block mb-1">Objective</span>
@@ -198,12 +198,11 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
       <div className="fixed bottom-0 left-0 w-full max-w-md mx-auto p-4 bg-white/90 dark:bg-surface-dark/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 z-30">
         <p className="text-center text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-widest">Document Export Actions</p>
         <div className="flex gap-3">
-          <button 
+          <button
             disabled={!!isExporting}
             onClick={() => handleExport('PDF')}
-            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${
-              isExporting === 'PDF' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 active:scale-95 shadow-sm shadow-red-500/10'
-            }`}
+            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isExporting === 'PDF' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 active:scale-95 shadow-sm shadow-red-500/10'
+              }`}
           >
             {isExporting === 'PDF' ? (
               <div className="size-5 border-2 border-red-200 border-t-red-600 rounded-full animate-spin"></div>
@@ -214,12 +213,11 @@ const ReportViewerScreen: React.FC<ReportViewerScreenProps> = ({ report, onBack 
               </>
             )}
           </button>
-          <button 
+          <button
             disabled={!!isExporting}
             onClick={() => handleExport('Word')}
-            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${
-              isExporting === 'Word' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 active:scale-95 shadow-sm shadow-blue-500/10'
-            }`}
+            className={`flex-1 h-14 rounded-xl flex items-center justify-center gap-2 font-bold transition-all ${isExporting === 'Word' ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 active:scale-95 shadow-sm shadow-blue-500/10'
+              }`}
           >
             {isExporting === 'Word' ? (
               <div className="size-5 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>

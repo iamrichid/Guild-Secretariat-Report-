@@ -40,47 +40,47 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen max-w-md mx-auto relative bg-background-light dark:bg-background-dark shadow-xl">
+    <div className="flex flex-col min-h-screen mx-auto relative bg-background-light dark:bg-background-dark shadow-xl">
       {currentView === 'LOGIN' && <LoginScreen onLogin={handleLogin} />}
       {currentView === 'SETUP' && <SetupContextScreen onComplete={handleSetupComplete} onBack={() => setCurrentView('LOGIN')} />}
       {currentView === 'DASHBOARD' && (
-        <DashboardScreen 
-          user={user} 
-          onNavigate={navigateTo} 
+        <DashboardScreen
+          user={user}
+          onNavigate={navigateTo}
           onCreateNew={() => navigateTo('CREATE')}
         />
       )}
       {currentView === 'ALL_REPORTS' && (
-        <ReportsListScreen 
-          onBack={() => navigateTo('DASHBOARD')} 
+        <ReportsListScreen
+          onBack={() => navigateTo('DASHBOARD')}
           onNavigate={navigateTo}
         />
       )}
       {currentView === 'CREATE' && (
-        <CreateReportScreen 
+        <CreateReportScreen
           onBack={() => navigateTo('DASHBOARD')}
           onSubmit={handleReportSubmit}
         />
       )}
       {currentView === 'REPORT_VIEWER' && activeReport && (
-        <ReportViewerScreen 
-          report={activeReport} 
-          onBack={() => navigateTo('ALL_REPORTS')} 
+        <ReportViewerScreen
+          report={activeReport}
+          onBack={() => navigateTo('ALL_REPORTS')}
         />
       )}
       {currentView === 'ARCHIVED' && (
-        <ArchivedReportsScreen 
+        <ArchivedReportsScreen
           onBack={() => navigateTo('DASHBOARD')}
           onNavigate={navigateTo}
         />
       )}
       {currentView === 'EXPORT' && (
-        <ExportReportsScreen 
+        <ExportReportsScreen
           onBack={() => navigateTo('ARCHIVED')}
         />
       )}
       {currentView === 'PROFILE' && (
-        <ProfileScreen 
+        <ProfileScreen
           user={user}
           onBack={() => navigateTo('DASHBOARD')}
           onLogout={handleLogout}
